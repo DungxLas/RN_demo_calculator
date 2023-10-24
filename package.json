@@ -1,5 +1,5 @@
 {
-  "name": "RN_demo_calculator",
+  "name": "rn_demo_calculator",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -32,5 +32,12 @@
   },
   "engines": {
     "node": ">=16"
-  }
+  },
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "author": "",
+  "license": "ISC"
 }
