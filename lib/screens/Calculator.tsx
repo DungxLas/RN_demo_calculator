@@ -3,28 +3,55 @@ import {FlatList, Pressable, StyleSheet, Text, View} from 'react-native';
 import ButtonPad from '../component/ButtonPad';
 
 const Calculator = () => {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState('ERR');
 
   const buttons = [
+    'AC',
+    'C',
+    '/',
+    '',
     '7',
     '8',
     '9',
-    '/',
+    '*',
     '4',
     '5',
     '6',
-    '*',
+    '-',
     '1',
     '2',
     '3',
-    '-',
+    '+',
     '0',
     '.',
     '=',
-    '+',
   ];
 
-  const renderItem = ({item}: any) => <ButtonPad item={item} />;
+  const handler = (nut: any) => {
+    if (input === 'ERR') {
+      setInput('');
+    }
+    if (nut === '=') {
+      let result;
+      try {
+        result = eval(input);
+      } catch (error) {
+        setInput('ERR');
+        return;
+      }
+      setInput(result);
+      return;
+    } else if (nut === 'AC') {
+      setInput('');
+    } else if (nut === 'C') {
+      setInput(prev => prev.slice(0, -1));
+    } else {
+      setInput(prev => prev + nut);
+    }
+  };
+
+  const renderItem = ({item}: any) =>
+    item === '' ? null : <ButtonPad item={item} onPress={handler} />;
 
   return (
     <View style={styles.container}>
@@ -61,22 +88,6 @@ const styles = StyleSheet.create({
   buttonContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  item: {
-    backgroundColor: 'gray',
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 5,
-    height: 60,
-    width: 60,
-    borderRadius: 30,
-  },
-  itemPressed: {
-    opacity: 0.8,
-  },
-  textButton: {
-    color: 'white',
-    fontSize: 24,
   },
 });
 

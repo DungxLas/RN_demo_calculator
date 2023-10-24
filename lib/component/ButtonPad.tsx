@@ -1,11 +1,19 @@
-import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal } from 'react';
 import {Pressable, StyleSheet, Text} from 'react-native';
 
-const ButtonPad = ({item}: any) => {
+const ButtonPad = ({item, onPress}: any) => {
+  const onTap = () => {
+    onPress(item);
+  };
+
+  let styleBtn = styles.item;
+  if (item === 'AC' || item === '=') {
+    styleBtn = styles.largeItem;
+  }
+
   return (
     <Pressable
-      style={({pressed}) => [pressed ? styles.itemPressed : null, styles.item]}
-      onPress={() => {}}>
+      style={({pressed}) => [pressed ? styles.itemPressed : null, styleBtn]}
+      onPress={onTap}>
       <Text style={styles.textButton}>{item}</Text>
     </Pressable>
   );
@@ -19,6 +27,15 @@ const styles = StyleSheet.create({
     margin: 5,
     height: 60,
     width: 60,
+    borderRadius: 30,
+  },
+  largeItem: {
+    backgroundColor: 'gray',
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 5,
+    height: 60,
+    width: 130,
     borderRadius: 30,
   },
   itemPressed: {
